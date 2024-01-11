@@ -1,6 +1,6 @@
 {
-    "name": "myapp",
-    "short_name": "myapp",
+    "name": "novena",
+    "short_name": "novena",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:myapp/models/prayer_model.dart';
-import 'package:myapp/models/chrismas_carol_model.dart';
-import 'package:myapp/models/day_model.dart';
-import 'package:myapp/styles/styles.dart';
-
-import 'Read.dart';
+import 'package:novena/models/prayer_model.dart';
+import 'package:novena/models/chrismas_carol_model.dart';
+import 'package:novena/models/day_model.dart';
+import 'package:novena/pages/reading.dart';
+import 'package:novena/styles/styles.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -21,6 +20,7 @@ class HomePage extends StatelessWidget {
     C = ChirimasCarol.getChirimasCarol();
   }
 
+  @override
   Widget build(BuildContext context) {
     _getInitialInfo();
 
@@ -164,7 +164,7 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ReadPage(info: days[index]),
+                      builder: (context) => ReadingPage(info: days[index]),
                     ),
                   );
                 },
@@ -271,7 +271,7 @@ class HomePage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                ReadPage(info: prayers[index]),
+                                ReadingPage(info: prayers[index]),
                           ),
                         );
                       },

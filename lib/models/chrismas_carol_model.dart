@@ -17,31 +17,31 @@ class ChirimasCarol {
     chirimas.add(ChirimasCarol(
       name: "Peces en el rio",
       url: "",
-      image: "assets/imgs/covers/preces.jpg",
+      image: "assets/images/covers/preces.jpg",
       viewIsVisible: true,
     ));
     chirimas.add(ChirimasCarol(
       name: "Rin Rin",
       url: "",
-      image: "assets/imgs/covers/rin rin.jpg",
+      image: "assets/images/covers/rin rin.jpg",
       viewIsVisible: true,
     ));
     chirimas.add(ChirimasCarol(
       name: "Tamborilero",
       url: "",
-      image: "assets/imgs/covers/tambor.jpg",
+      image: "assets/images/covers/tambor.jpg",
       viewIsVisible: true,
     ));
     chirimas.add(ChirimasCarol(
       name: "Campana sobre campana",
       url: "",
-      image: "assets/imgs/covers/campanas.jpg",
+      image: "assets/images/covers/campanas.jpg",
       viewIsVisible: false,
     ));
     chirimas.add(ChirimasCarol(
       name: "A la nanita nana",
       url: "",
-      image: "assets/imgs/covers/last.jpg",
+      image: "assets/images/covers/last.jpg",
       viewIsVisible: true,
     ));
 

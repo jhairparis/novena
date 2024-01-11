@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:myapp/models/model.dart';
+import 'package:novena/models/model.dart';
 import 'dart:async' show Future;
-import 'package:myapp/styles/styles.dart';
+import 'package:novena/styles/styles.dart';
 
 Styles styles = Styles();
 
@@ -22,7 +22,7 @@ class PrayWidget extends StatelessWidget {
         future: loadAsset(context, fileName),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator(); // Muestra un indicador de carga mientras espera.
+            return const CircularProgressIndicator();
           } else if (snapshot.hasError) {
             return Text("Error: ${snapshot.error}");
           } else {
@@ -49,9 +49,9 @@ class PrayWidget extends StatelessWidget {
   }
 }
 
-class ReadPage extends StatelessWidget {
+class ReadingPage extends StatelessWidget {
   final BaseModel info;
-  const ReadPage({Key? key, required this.info}) : super(key: key);
+  const ReadingPage({Key? key, required this.info}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
