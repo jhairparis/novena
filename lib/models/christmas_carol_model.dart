@@ -1,13 +1,13 @@
 class ChristmasCarol {
   String name;
   String image;
-  String url;
+  String audio;
   bool viewIsVisible;
 
   ChristmasCarol({
     required this.name,
     required this.image,
-    required this.url,
+    required this.audio,
     required this.viewIsVisible,
   });
 
@@ -16,31 +16,31 @@ class ChristmasCarol {
 
     christmas.add(ChristmasCarol(
       name: "Peces en el rio",
-      url: "",
-      image: "assets/images/covers/preces.jpg",
+      audio: "assets/audio/peces.mp3",
+      image: "assets/images/covers/peces.jpg",
       viewIsVisible: true,
     ));
     christmas.add(ChristmasCarol(
       name: "Rin Rin",
-      url: "",
+      audio: "",
       image: "assets/images/covers/rin rin.jpg",
       viewIsVisible: true,
     ));
     christmas.add(ChristmasCarol(
       name: "Tamborilero",
-      url: "",
+      audio: "",
       image: "assets/images/covers/tambor.jpg",
       viewIsVisible: true,
     ));
     christmas.add(ChristmasCarol(
       name: "Campana sobre campana",
-      url: "",
+      audio: "",
       image: "assets/images/covers/campanas.jpg",
       viewIsVisible: false,
     ));
     christmas.add(ChristmasCarol(
       name: "A la nanita nana",
-      url: "",
+      audio: "",
       image: "assets/images/covers/last.jpg",
       viewIsVisible: true,
     ));
