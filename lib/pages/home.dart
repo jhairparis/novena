@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:novena/models/prayer_model.dart';
 import 'package:novena/models/christmas_carol_model.dart';
 import 'package:novena/models/day_model.dart';
+import 'package:novena/pages/listen.dart';
 import 'package:novena/pages/reading.dart';
 import 'package:novena/styles/styles.dart';
 
@@ -100,37 +101,47 @@ class HomePage extends StatelessWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  Container(
-                    width: 120,
-                    height: 120,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey,
-                      borderRadius: BorderRadius.circular(11.2),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ListenPage(info: C[index]),
                     ),
-                    child: Image.asset(C[index].image, fit: BoxFit.cover),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black54,
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 10,
-                        bottom: 10,
-                        right: 14,
-                        left: 14,
+                  );
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      width: 120,
+                      height: 120,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey,
+                        borderRadius: BorderRadius.circular(11.2),
                       ),
-                      child: Text(C[index].name, style: styles.subtitle),
+                      child: Image.asset(C[index].image, fit: BoxFit.cover),
                     ),
-                  )
-                ],
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black54,
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 10,
+                          bottom: 10,
+                          right: 14,
+                          left: 14,
+                        ),
+                        child: Text(C[index].name, style: styles.subtitle),
+                      ),
+                    )
+                  ],
+                ),
               );
             },
             padding: const EdgeInsets.only(left: 20, right: 20),
