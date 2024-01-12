@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:novena/models/prayer_model.dart';
-import 'package:novena/models/chrismas_carol_model.dart';
+import 'package:novena/models/christmas_carol_model.dart';
 import 'package:novena/models/day_model.dart';
 import 'package:novena/pages/reading.dart';
 import 'package:novena/styles/styles.dart';
@@ -11,13 +11,13 @@ class HomePage extends StatelessWidget {
 
   List<PrayerModel> prayers = [];
   List<DayModel> days = [];
-  List<ChirimasCarol> C = [];
+  List<ChristmasCarol> C = [];
   Styles styles = Styles();
 
   void _getInitialInfo() {
-    prayers = PrayerModel.getPrayesrs();
+    prayers = PrayerModel.getPrayers();
     days = DayModel.getDiets();
-    C = ChirimasCarol.getChirimasCarol();
+    C = ChristmasCarol.getChristmasCarol();
   }
 
   @override

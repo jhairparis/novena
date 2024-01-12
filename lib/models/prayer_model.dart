@@ -12,7 +12,7 @@ class PrayerModel extends BaseModel {
     required super.type,
   });
 
-  static List<PrayerModel> getPrayesrs() {
+  static List<PrayerModel> getPrayers() {
     List<PrayerModel> prayers = [];
 
     prayers.add(PrayerModel(
