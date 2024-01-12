@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:novena/models/model.dart';
@@ -24,7 +25,15 @@ class PrayWidget extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasError) {
-            return Text("Error: ${snapshot.error}");
+            if (kDebugMode) {
+              print("Error: ${snapshot.error}");
+            }
+            return Text(
+              "Ops! Algo salió mal.",
+              style: styles.heading6.copyWith(
+                color: const Color(0xffFFD1E3),
+              ),
+            );
           } else {
             return Padding(
               padding: const EdgeInsets.only(
