@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:novena/models/model.dart';
-import 'dart:async' show Future;
 import 'package:novena/styles/styles.dart';
 
 Styles styles = Styles();
@@ -11,16 +10,11 @@ class PrayWidget extends StatelessWidget {
   final String fileName;
   const PrayWidget({Key? key, required this.fileName}) : super(key: key);
 
-  Future<String> loadAsset(BuildContext context, String source) async {
-    return await DefaultAssetBundle.of(context)
-        .loadString('assets/txt/$source.txt');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Center(
       child: FutureBuilder<String>(
-        future: loadAsset(context, fileName),
+        future: styles.loadText(context, fileName),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();

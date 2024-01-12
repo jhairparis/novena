@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async' show Future;
 
 class Styles {
   final TextStyle _textStyleHeading1 = const TextStyle(
@@ -43,4 +44,9 @@ class Styles {
 
   TextStyle get subtitle => _textStyleSubtitle;
   TextStyle get subtitle2 => _textStyleSubtitle2;
+
+  Future<String> loadText(BuildContext context, String source) async {
+    return await DefaultAssetBundle.of(context)
+        .loadString('assets/txt/$source.txt');
+  }
 }
