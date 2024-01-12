@@ -8,7 +8,7 @@ Styles styles = Styles();
 
 class PrayWidget extends StatelessWidget {
   final String fileName;
-  const PrayWidget({Key? key, required this.fileName}) : super(key: key);
+  const PrayWidget({super.key, required this.fileName});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class PrayWidget extends StatelessWidget {
 
 class ReadingPage extends StatelessWidget {
   final BaseModel info;
-  const ReadingPage({Key? key, required this.info}) : super(key: key);
+  const ReadingPage({super.key, required this.info});
 
   @override
   Widget build(BuildContext context) {

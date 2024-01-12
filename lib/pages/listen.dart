@@ -86,7 +86,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
 
 class Controls extends StatelessWidget {
   final AudioPlayer player;
-  const Controls({Key? key, required this.player}) : super(key: key);
+  const Controls({super.key, required this.player});
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class Controls extends StatelessWidget {
         stream: player.playerStateStream,
         builder: (context, snapshot) {
           final playerSate = snapshot.data;
-          final processinState = playerSate?.processingState;
+          final processingState = playerSate?.processingState;
           final playing = playerSate?.playing;
 
           if (!(playing ?? false)) {
@@ -104,7 +104,7 @@ class Controls extends StatelessWidget {
               color: const Color(0xff52D3D8),
               icon: const Icon(Icons.play_arrow),
             );
-          } else if (processinState != ProcessingState.completed) {
+          } else if (processingState != ProcessingState.completed) {
             return IconButton(
               onPressed: player.pause,
               iconSize: 80,
@@ -125,7 +125,7 @@ class Controls extends StatelessWidget {
 
 class ListenPage extends StatelessWidget {
   final ChristmasCarol info;
-  const ListenPage({Key? key, required this.info}) : super(key: key);
+  const ListenPage({super.key, required this.info});
 
   @override
   Widget build(BuildContext context) {
