@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:novena/models/prayer_model.dart';
 import 'package:novena/models/christmas_carol_model.dart';
 import 'package:novena/models/day_model.dart';
@@ -14,6 +15,8 @@ class HomePage extends StatelessWidget {
   List<DayModel> days = [];
   List<ChristmasCarol> C = [];
   Styles styles = Styles();
+
+  final _playlist = ConcatenatingAudioSource(children: []);
 
   void _getInitialInfo() {
     prayers = PrayerModel.getPrayers();
@@ -72,7 +75,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(
                     height: 16,
                   ),
-                  _chrismasCarolSection(),
+                  _christmasCarolSection(),
                 ],
               )
             ],
@@ -82,7 +85,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Column _chrismasCarolSection() {
+  Column _christmasCarolSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -101,12 +104,15 @@ class HomePage extends StatelessWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
+              _playlist.add(AudioSource.asset(C[index].audio, tag: C[index]));
+
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ListenPage(info: C[index]),
+                      builder: (context) =>
+                          ListenPage(info: C[index], playlist: _playlist),
                     ),
                   );
                 },
