@@ -10,6 +10,7 @@ class PrayerModel extends BaseModel {
     required super.fileName,
     required super.image,
     required super.type,
+    required super.haveNext,
   });
 
   static List<PrayerModel> getPrayers() {
@@ -21,6 +22,7 @@ class PrayerModel extends BaseModel {
       type: "Todos los dias",
       image: "assets/images/one.jpg",
       boxColor: const Color(0xFF119FC2),
+      haveNext: true,
     ));
 
     prayers.add(PrayerModel(
@@ -29,6 +31,7 @@ class PrayerModel extends BaseModel {
       type: "Todos los dias",
       image: "assets/images/two.jpg",
       boxColor: const Color(0xFF119FC2),
+      haveNext: true,
     ));
 
     prayers.add(PrayerModel(
@@ -37,6 +40,7 @@ class PrayerModel extends BaseModel {
       type: "Todos los dias",
       image: "assets/images/three.jpg",
       boxColor: const Color(0xFF119FC2),
+      haveNext: true,
     ));
     prayers.add(PrayerModel(
       name: "Nino jesus",
@@ -44,7 +48,13 @@ class PrayerModel extends BaseModel {
       type: "Todos los dias",
       image: "assets/images/four.jpg",
       boxColor: const Color(0xFF119FC2),
+      haveNext: false,
     ));
+
+    prayers[0].next = prayers[1];
+    prayers[1].next = prayers[2];
+    prayers[2].next = prayers[3];
+
     return prayers;
   }
 }

@@ -11,6 +11,7 @@ class DayModel extends BaseModel {
     required super.fileName,
     required super.image,
     required super.type,
+    required super.haveNext,
   });
 
   static List<DayModel> getDiets() {
@@ -26,6 +27,7 @@ class DayModel extends BaseModel {
       description:
           "Lorem ipsum dolor sit amet consectetur. Nulla proin leo non dignissim sodales feugiat porttitor.",
       viewIsVisible: 16 == day,
+      haveNext: true,
     ));
     days.add(DayModel(
       name: "Dia 2",
@@ -35,6 +37,7 @@ class DayModel extends BaseModel {
       description:
           "Lorem ipsum dolor sit amet consectetur. Nulla proin leo non dignissim sodales feugiat porttitor.",
       viewIsVisible: 17 == day,
+      haveNext: true,
     ));
     days.add(DayModel(
       name: "Dia 3",
@@ -44,6 +47,7 @@ class DayModel extends BaseModel {
       description:
           "Lorem ipsum dolor sit amet consectetur. Nulla proin leo non dignissim sodales feugiat porttitor.",
       viewIsVisible: 18 == day,
+      haveNext: true,
     ));
     days.add(DayModel(
       name: "Dia 4",
@@ -53,6 +57,7 @@ class DayModel extends BaseModel {
       description:
           "Lorem ipsum dolor sit amet consectetur. Nulla proin leo non dignissim sodales feugiat porttitor.",
       viewIsVisible: 19 == day,
+      haveNext: true,
     ));
     days.add(DayModel(
       name: "Dia 5",
@@ -62,6 +67,7 @@ class DayModel extends BaseModel {
       description:
           "Lorem ipsum dolor sit amet consectetur. Nulla proin leo non dignissim sodales feugiat porttitor.",
       viewIsVisible: 20 == day,
+      haveNext: true,
     ));
     days.add(DayModel(
       name: "Dia 6",
@@ -71,6 +77,7 @@ class DayModel extends BaseModel {
       description:
           "Lorem ipsum dolor sit amet consectetur. Nulla proin leo non dignissim sodales feugiat porttitor.",
       viewIsVisible: 21 == day,
+      haveNext: true,
     ));
     days.add(DayModel(
       name: "Dia 7",
@@ -80,6 +87,7 @@ class DayModel extends BaseModel {
       description:
           "Lorem ipsum dolor sit amet consectetur. Nulla proin leo non dignissim sodales feugiat porttitor.",
       viewIsVisible: 22 == day,
+      haveNext: true,
     ));
     days.add(DayModel(
       name: "Dia 8",
@@ -89,6 +97,7 @@ class DayModel extends BaseModel {
       description:
           "Lorem ipsum dolor sit amet consectetur. Nulla proin leo non dignissim sodales feugiat porttitor.",
       viewIsVisible: 23 == day,
+      haveNext: true,
     ));
     days.add(DayModel(
       name: "Dia 9",
@@ -98,7 +107,17 @@ class DayModel extends BaseModel {
       description:
           "Lorem ipsum dolor sit amet consectetur. Nulla proin leo non dignissim sodales feugiat porttitor.",
       viewIsVisible: 24 == day,
+      haveNext: false,
     ));
+
+    days[0].next = days[1];
+    days[1].next = days[2];
+    days[2].next = days[3];
+    days[3].next = days[4];
+    days[4].next = days[5];
+    days[5].next = days[6];
+    days[6].next = days[7];
+    days[7].next = days[8];
 
     return days;
   }

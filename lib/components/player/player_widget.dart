@@ -51,9 +51,13 @@ class _PlayerWidgetState extends State<PlayerWidget> {
   }
 
   Future<void> _init() async {
-    await _player.setLoopMode(LoopMode.all);
-    await _player.setAudioSource(widget.playlist);
-    await _player.seek(Duration.zero, index: widget.song);
+    try {
+      await _player.setLoopMode(LoopMode.all);
+      await _player.setAudioSource(widget.playlist);
+      await _player.seek(Duration.zero, index: widget.song);
+    } catch (e) {
+      // ignore this errors
+    }
   }
 
   @override
@@ -183,7 +187,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
           color: Color(0xff52D3D8),
         ),
       ),
-      actions: [
+      /* actions: [
         IconButton(
           onPressed: () {},
           icon: const Icon(
@@ -191,7 +195,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
             color: Color(0xff52D3D8),
           ),
         ),
-      ],
+      ], */
       title: StreamBuilder<SequenceState?>(
           stream: _player.sequenceStateStream,
           builder: (context, snapshot) {
@@ -210,17 +214,3 @@ class _PlayerWidgetState extends State<PlayerWidget> {
     );
   }
 }
-/* Expanded(
-                child: StreamBuilder<SequenceState?>(
-                    stream: _player.sequenceStateStream,
-                    builder: (context, snapshot) {
-                      final state = snapshot.data;
-                      if (state?.sequence.isEmpty ?? true) {
-                        return const SizedBox(height: 8);
-                      }
-                      final metadata =
-                          state!.currentSource!.tag as ChristmasCarol;
-
-                      return ;
-                    }),
-              ), */

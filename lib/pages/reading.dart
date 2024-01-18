@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:novena/models/model.dart';
 import 'package:novena/styles/styles.dart';
 
@@ -80,52 +79,29 @@ class ReadingPage extends StatelessWidget {
           ],
         ),
         backgroundColor: const Color(0xff392467),
-        leading: Padding(
-          padding: const EdgeInsets.only(top: 6, bottom: 6),
-          child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: const Color(0x1FFFFFFF),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: SvgPicture.asset(
-                  "assets/icons/chevron-left.svg",
-                  width: 20,
-                  height: 20,
-                  colorFilter: const ColorFilter.mode(
-                      Color(0xffFFD1E3), BlendMode.srcIn),
-                ),
-              )),
+        leading: IconButton.filledTonal(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(top: 6, bottom: 6),
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                alignment: Alignment.center,
-                width: 37,
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: const Color(0x1FFFFFFF),
-                  borderRadius: BorderRadius.circular(10),
+        actions: info.haveNext
+            ? [
+                IconButton.filledTonal(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReadingPage(
+                          info: info.next,
+                        ),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.arrow_forward),
                 ),
-                child: SvgPicture.asset(
-                  "assets/icons/chevron-right.svg",
-                  width: 20,
-                  height: 20,
-                  colorFilter: const ColorFilter.mode(
-                      Color(0xffFFD1E3), BlendMode.srcIn),
-                ),
-              ),
-            ),
-          ),
-        ],
+              ]
+            : [],
       ),
       body: PrayWidget(fileName: info.fileName),
       backgroundColor: const Color(0xff392467),
