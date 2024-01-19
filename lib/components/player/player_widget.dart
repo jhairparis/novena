@@ -83,7 +83,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                 if (state?.sequence.isEmpty ?? true) {
                   return const SizedBox();
                 }
-                final metaData = state!.currentSource!.tag as ChristmasCarol;
+                final metaData = state!.currentSource!.tag as ChristmasCarolModel;
 
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -203,7 +203,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
             if (state?.sequence.isEmpty ?? true) {
               return const Text('None selected');
             }
-            final metadata = state!.currentSource!.tag as ChristmasCarol;
+            final metadata = state!.currentSource!.tag as ChristmasCarolModel;
             return Text(
               metadata.name,
               style: styles.heading3.copyWith(

@@ -14,7 +14,7 @@ class DayModel extends BaseModel {
     required super.haveNext,
   });
 
-  static List<DayModel> getDiets() {
+  static List<DayModel> getDays() {
     int year = DateTime.now().year;
     int day = DateTime.now().day;
     List<DayModel> days = <DayModel>[];

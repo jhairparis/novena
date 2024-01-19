@@ -1,11 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:novena/models/model.dart';
 
 class PrayerModel extends BaseModel {
-  Color boxColor;
-
   PrayerModel({
-    required this.boxColor,
     required super.name,
     required super.fileName,
     required super.image,
@@ -21,7 +17,6 @@ class PrayerModel extends BaseModel {
       fileName: "NdeA",
       type: "Todos los dias",
       image: "assets/images/one.jpg",
-      boxColor: const Color(0xFF119FC2),
       haveNext: true,
     ));
 
@@ -30,7 +25,6 @@ class PrayerModel extends BaseModel {
       fileName: "SV",
       type: "Todos los dias",
       image: "assets/images/two.jpg",
-      boxColor: const Color(0xFF119FC2),
       haveNext: true,
     ));
 
@@ -39,7 +33,6 @@ class PrayerModel extends BaseModel {
       fileName: "SJ",
       type: "Todos los dias",
       image: "assets/images/three.jpg",
-      boxColor: const Color(0xFF119FC2),
       haveNext: true,
     ));
     prayers.add(PrayerModel(
@@ -47,7 +40,6 @@ class PrayerModel extends BaseModel {
       fileName: "NJ",
       type: "Todos los dias",
       image: "assets/images/four.jpg",
-      boxColor: const Color(0xFF119FC2),
       haveNext: false,
     ));
 

@@ -6,30 +6,13 @@ import 'package:novena/models/christmas_carol_model.dart';
 import 'package:novena/models/day_model.dart';
 import 'package:novena/pages/listen.dart';
 import 'package:novena/pages/reading.dart';
-import 'package:novena/styles/styles.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  List<PrayerModel> prayers = [];
-  List<DayModel> days = [];
-  List<ChristmasCarol> C = [];
-  Styles styles = Styles();
-
-  final _playlist = ConcatenatingAudioSource(children: []);
-
-  void _getInitialInfo() {
-    prayers = PrayerModel.getPrayers();
-    days = DayModel.getDiets();
-    C = ChristmasCarol.getChristmasCarol();
-  }
-
   @override
   Widget build(BuildContext context) {
-    _getInitialInfo();
-
     return Scaffold(
-      backgroundColor: const Color(0xffFFD1E3),
       body: ListView(
         children: [
           Stack(
@@ -45,8 +28,8 @@ class HomePage extends StatelessWidget {
                     "assets/icons/candy-cane.svg",
                     width: 198,
                     height: 232,
-                    colorFilter: const ColorFilter.mode(
-                      Color(0x33A367B1),
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.primary.withOpacity(0.25),
                       BlendMode.srcIn,
                     ),
                   ),
@@ -59,23 +42,28 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 20, top: 25),
                     child: Text(
                       "En familia\nes mejor",
-                      style: styles.heading1.copyWith(
-                        color: const Color(0xff5D3587),
-                      ),
+                      style:
+                          Theme.of(context).textTheme.headlineLarge!.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 48,
+                              ),
                     ),
                   ),
                   const SizedBox(
                     height: 16,
                   ),
-                  _prayerSection(context),
+                  const PrayerSection(),
                   const SizedBox(
                     height: 16,
                   ),
-                  _daySection(),
+                  const DaySection(),
                   const SizedBox(
-                    height: 16,
+                    height: 20,
                   ),
-                  _christmasCarolSection(),
+                  const ChristmasCarol(),
+                  const SizedBox(
+                    height: 40,
+                  ),
                 ],
               )
             ],
@@ -84,71 +72,37 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Column _christmasCarolSection() {
+class ChristmasCarol extends StatelessWidget {
+  const ChristmasCarol({super.key});
+
+  static final C = ChristmasCarolModel.getChristmasCarol();
+  static final _playlist = ConcatenatingAudioSource(children: []);
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Text(
-            "Villancico",
-            style: styles.heading6,
+            "Villancicos",
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),
         const SizedBox(
           height: 16,
         ),
         SizedBox(
-          height: 320,
+          height: 220,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               _playlist.add(AudioSource.asset(C[index].audio, tag: C[index]));
 
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ListenPage(info: C[index], playlist: _playlist),
-                    ),
-                  );
-                },
-                child: Column(
-                  children: [
-                    Container(
-                      width: 120,
-                      height: 120,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        color: Colors.blueGrey,
-                        borderRadius: BorderRadius.circular(11.2),
-                      ),
-                      child: Image.asset(C[index].image, fit: BoxFit.cover),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.black54,
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          top: 10,
-                          bottom: 10,
-                          right: 14,
-                          left: 14,
-                        ),
-                        child: Text(C[index].name, style: styles.subtitle),
-                      ),
-                    )
-                  ],
-                ),
-              );
+              return christmasCarolBuilder(context, index);
             },
             padding: const EdgeInsets.only(left: 20, right: 20),
             separatorBuilder: (context, index) => const SizedBox(width: 25),
@@ -159,16 +113,65 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Column _daySection() {
+  Card christmasCarolBuilder(BuildContext context, int index) {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  ListenPage(info: C[index], playlist: _playlist),
+            ),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Card(
+                clipBehavior: Clip.antiAlias,
+                child: Image.asset(
+                  C[index].image,
+                  fit: BoxFit.cover,
+                  width: 120,
+                  height: 120,
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Text(C[index].name, style: Theme.of(context).textTheme.titleLarge)
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DaySection extends StatelessWidget {
+  const DaySection({
+    super.key,
+  });
+
+  static final days = DayModel.getDays();
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Text(
-            "Dias",
-            style: styles.heading6,
+            "Dias de la novena",
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
+        ),
+        const SizedBox(
+          height: 16,
         ),
         ConstrainedBox(
           constraints: const BoxConstraints(maxHeight: 495),
@@ -176,90 +179,10 @@ class HomePage extends StatelessWidget {
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ReadingPage(info: days[index]),
-                    ),
-                  );
-                },
-                child: Container(
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: const Color(0xffA367B1),
-                    borderRadius: BorderRadius.circular(18),
-                    boxShadow: days[index].viewIsVisible
-                        ? [
-                            BoxShadow(
-                              color: const Color(0xff1D1617).withOpacity(0.51),
-                              blurRadius: 40,
-                              spreadRadius: 0.0,
-                            )
-                          ]
-                        : [],
-                  ),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Container(
-                          width: 110,
-                          height: 120,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(19),
-                              bottomLeft: Radius.circular(19),
-                              topRight: Radius.circular(19),
-                            ),
-                          ),
-                          child: Image.asset(
-                            days[index].image,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: 8,
-                            // bottom: 20,
-                            left: 10,
-                          ),
-                          child: Column(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                days[index].name,
-                                style: styles.heading6.copyWith(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                days[index].description,
-                                overflow: TextOverflow.fade,
-                                maxLines: 5,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
+              return dayBuilder(context, index);
             },
-            padding:
-                const EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 40),
-            separatorBuilder: (context, index) => const SizedBox(height: 8),
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            separatorBuilder: (context, index) => const SizedBox(height: 10),
             itemCount: days.length,
           ),
         ),
@@ -267,7 +190,74 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Column _prayerSection(ctx) {
+  Card dayBuilder(BuildContext context, int index) {
+    return Card(
+      elevation: 0,
+      color: Theme.of(context).colorScheme.surfaceVariant,
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ReadingPage(info: days[index]),
+            ),
+          );
+        },
+        child: Padding(
+          padding:
+              const EdgeInsets.only(top: 12, bottom: 12, left: 20, right: 20),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      days[index].name,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      days[index].description,
+                      overflow: TextOverflow.fade,
+                      maxLines: 5,
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+              Card(
+                clipBehavior: Clip.antiAlias,
+                child: Image.asset(
+                  width: 80,
+                  height: 80,
+                  days[index].image,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PrayerSection extends StatelessWidget {
+  const PrayerSection({
+    super.key,
+  });
+
+  static final prayers = PrayerModel.getPrayers();
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -275,58 +265,57 @@ class HomePage extends StatelessWidget {
           height: 16,
         ),
         SizedBox(
-          height: 300,
+          height: 320,
           child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.only(left: 20, right: 20),
               itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                ReadingPage(info: prayers[index]),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: 150,
-                        height: 230,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          color: prayers[index].boxColor.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(28),
-                        ),
-                        child: Image.asset(
-                          prayers[index].image,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          prayers[index].name,
-                          style: styles.heading6,
-                        ),
-                        Text(
-                          prayers[index].type,
-                          style: styles.subtitle2,
-                        )
-                      ],
-                    ),
-                  ],
-                );
+                return prayerBuilder(index, context);
               },
               separatorBuilder: (context, index) => const SizedBox(width: 45),
               itemCount: prayers.length),
         )
+      ],
+    );
+  }
+
+  Column prayerBuilder(int index, BuildContext context) {
+    return Column(
+      children: [
+        Card(
+          clipBehavior: Clip.hardEdge,
+          child: Ink.image(
+            image: AssetImage(prayers[index].image),
+            fit: BoxFit.cover,
+            width: 150,
+            height: 230,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ReadingPage(info: prayers[index]),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Column(
+          children: [
+            Text(
+              prayers[index].name,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            Text(
+              prayers[index].type,
+              style: Theme.of(context).textTheme.bodyLarge,
+            )
+          ],
+        ),
       ],
     );
   }
