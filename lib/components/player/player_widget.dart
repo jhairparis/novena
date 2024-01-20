@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:novena/components/player/controls.dart';
 import 'package:novena/models/christmas_carol_model.dart';
-import 'package:novena/styles/styles.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PositionData {
@@ -17,8 +16,6 @@ class PositionData {
     required this.duration,
   });
 }
-
-Styles styles = Styles();
 
 class PlayerWidget extends StatefulWidget {
   final int song;
@@ -66,14 +63,16 @@ class _PlayerWidgetState extends State<PlayerWidget> {
     super.dispose();
   }
 
+  Future<String> loadText(BuildContext context, String source) async {
+    return await DefaultAssetBundle.of(context)
+        .loadString('assets/txt/$source.txt');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context),
       body: Container(
-        decoration: const BoxDecoration(
-          color: Color(0xff11235A),
-        ),
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: StreamBuilder<SequenceState?>(
@@ -83,7 +82,8 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                 if (state?.sequence.isEmpty ?? true) {
                   return const SizedBox();
                 }
-                final metaData = state!.currentSource!.tag as ChristmasCarolModel;
+                final metaData =
+                    state!.currentSource!.tag as ChristmasCarolModel;
 
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -103,7 +103,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                         width: double.infinity,
                         height: double.infinity,
                         child: FutureBuilder(
-                          future: styles.loadText(context, metaData.lyrics),
+                          future: loadText(context, metaData.lyrics),
                           builder: (cxt, snap) {
                             if (snap.connectionState ==
                                 ConnectionState.waiting) {
@@ -120,17 +120,13 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                             } else if (snap.hasError) {
                               return Text(
                                 "Ops! Algo salió mal.",
-                                style: styles.heading6.copyWith(
-                                  color: const Color(0xffFFD1E3),
-                                ),
+                                style: Theme.of(context).textTheme.bodyLarge,
                               );
                             } else {
                               return SingleChildScrollView(
                                 child: Text(
                                   snap.data ?? "default value",
-                                  style: styles.heading6.copyWith(
-                                    color: const Color(0xffFFD1E3),
-                                  ),
+                                  style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               );
                             }
@@ -162,30 +158,19 @@ class _PlayerWidgetState extends State<PlayerWidget> {
             total: positionData?.duration ?? Duration.zero,
             onSeek: _player.seek,
             barHeight: 8,
-            baseBarColor: const Color(0xff176B87),
-            bufferedBarColor: const Color(0x5AEEF5FF),
-            progressBarColor: const Color(0xff86B6F6),
-            thumbColor: const Color(0xffB4D4FF),
-            timeLabelTextStyle: const TextStyle(
-              color: Color(0xff52D3D8),
-              fontSize: 24,
-            ),
           );
         });
   }
 
   AppBar _appBar(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color(0xff11235A),
       elevation: 0,
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: const Icon(
-          Icons.arrow_back,
-          color: Color(0xff52D3D8),
-        ),
+        icon: const Icon(Icons.arrow_back),
+        tooltip: "Regresar",
       ),
       /* actions: [
         IconButton(
@@ -201,14 +186,15 @@ class _PlayerWidgetState extends State<PlayerWidget> {
           builder: (context, snapshot) {
             final state = snapshot.data;
             if (state?.sequence.isEmpty ?? true) {
-              return const Text('None selected');
+              return Text(
+                'None selected',
+                style: Theme.of(context).textTheme.headlineMedium,
+              );
             }
             final metadata = state!.currentSource!.tag as ChristmasCarolModel;
             return Text(
               metadata.name,
-              style: styles.heading3.copyWith(
-                color: const Color(0xff52D3D8),
-              ),
+              style: Theme.of(context).textTheme.headlineMedium,
             );
           }),
     );

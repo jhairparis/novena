@@ -13,8 +13,8 @@ class Controls extends StatelessWidget {
         IconButton(
           onPressed: player.seekToPrevious,
           iconSize: 70,
-          color: const Color(0xff52D3D8),
           icon: const Icon(Icons.skip_previous_rounded),
+          tooltip: "Anterior villancico",
         ),
         StreamBuilder<PlayerState>(
             stream: player.playerStateStream,
@@ -27,30 +27,30 @@ class Controls extends StatelessWidget {
                 return IconButton(
                   onPressed: player.play,
                   iconSize: 80,
-                  color: const Color(0xff52D3D8),
                   icon: const Icon(Icons.play_arrow_rounded),
+                  tooltip: "Iniciar villancico",
                 );
               } else if (processingState != ProcessingState.completed) {
                 return IconButton(
                   onPressed: player.pause,
                   iconSize: 80,
-                  color: const Color(0xff52D3D8),
                   icon: const Icon(Icons.pause_rounded),
+                  tooltip: "Pausar villancico",
                 );
               }
 
               return IconButton(
                 onPressed: () {},
                 iconSize: 80,
-                color: const Color(0xff52D3D8),
                 icon: const Icon(Icons.house_siding_outlined),
+                tooltip: "Fin de la lista de villancicos",
               );
             }),
         IconButton(
           onPressed: player.seekToNext,
           iconSize: 70,
-          color: const Color(0xff52D3D8),
           icon: const Icon(Icons.skip_next_rounded),
+          tooltip: "Siguiente villancico",
         ),
       ],
     );

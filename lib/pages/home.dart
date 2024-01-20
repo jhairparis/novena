@@ -192,8 +192,6 @@ class DaySection extends StatelessWidget {
 
   Card dayBuilder(BuildContext context, int index) {
     return Card(
-      elevation: 0,
-      color: Theme.of(context).colorScheme.surfaceVariant,
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {

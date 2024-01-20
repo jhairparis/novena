@@ -1,19 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:novena/models/model.dart';
-import 'package:novena/styles/styles.dart';
-
-Styles styles = Styles();
+import 'dart:async' show Future;
 
 class PrayWidget extends StatelessWidget {
   final String fileName;
   const PrayWidget({super.key, required this.fileName});
 
+  Future<String> loadText(BuildContext context, String source) async {
+    return await DefaultAssetBundle.of(context)
+        .loadString('assets/txt/$source.txt');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: FutureBuilder<String>(
-        future: styles.loadText(context, fileName),
+        future: loadText(context, fileName),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
@@ -23,9 +26,7 @@ class PrayWidget extends StatelessWidget {
             }
             return Text(
               "Ops! Algo salió mal.",
-              style: styles.heading6.copyWith(
-                color: const Color(0xffFFD1E3),
-              ),
+              style: Theme.of(context).textTheme.bodyLarge,
             );
           } else {
             return Padding(
@@ -37,9 +38,7 @@ class PrayWidget extends StatelessWidget {
                 children: [
                   Text(
                     snapshot.data ?? "default value",
-                    style: styles.heading6.copyWith(
-                      color: const Color(0xffFFD1E3),
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   )
                 ],
               ),
@@ -66,28 +65,24 @@ class ReadingPage extends StatelessWidget {
           children: [
             Text(
               info.name,
-              style: styles.heading3.copyWith(
-                color: const Color(0xffFFD1E3),
-              ),
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(
               info.type,
-              style: styles.subtitle.copyWith(
-                color: const Color(0xffA367B1),
-              ),
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ],
         ),
-        backgroundColor: const Color(0xff392467),
-        leading: IconButton.filledTonal(
+        leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
+          tooltip: 'Regresar',
           icon: const Icon(Icons.arrow_back),
         ),
         actions: info.haveNext
             ? [
-                IconButton.filledTonal(
+                IconButton(
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -98,13 +93,13 @@ class ReadingPage extends StatelessWidget {
                       ),
                     );
                   },
+                  tooltip: 'Leer ${info.next.name}',
                   icon: const Icon(Icons.arrow_forward),
                 ),
               ]
             : [],
       ),
       body: PrayWidget(fileName: info.fileName),
-      backgroundColor: const Color(0xff392467),
     );
   }
 }
