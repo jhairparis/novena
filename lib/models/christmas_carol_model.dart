@@ -37,25 +37,25 @@ class ChristmasCarolModel {
     christmas.add(ChristmasCarolModel(
       id: 2,
       name: "Tamborilero",
-      audio: "assets/audio/peces.mp3",
+      audio: "assets/audio/tamborilero.mp3",
       image: "assets/images/covers/tambor.webp",
-      lyrics: "",
+      lyrics: "tamborilero",
       viewIsVisible: true,
     ));
     christmas.add(ChristmasCarolModel(
       id: 3,
       name: "Campana sobre campana",
-      audio: "assets/audio/peces.mp3",
-      lyrics: "",
+      audio: "assets/audio/campana_sobre_campana.mp3",
+      lyrics: "campana_sobre_campana",
       image: "assets/images/covers/campanas.webp",
-      viewIsVisible: false,
+      viewIsVisible: true,
     ));
     christmas.add(ChristmasCarolModel(
       id: 4,
       name: "A la nanita nana",
-      audio: "assets/audio/peces.mp3",
+      audio: "assets/audio/la_anita_nana.mp3",
       image: "assets/images/covers/last.webp",
-      lyrics: "",
+      lyrics: "la_anita_nana",
       viewIsVisible: true,
     ));
 
