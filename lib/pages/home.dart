@@ -8,7 +8,7 @@ import 'package:novena/pages/listen.dart';
 import 'package:novena/pages/reading.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

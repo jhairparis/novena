@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         themeMode: ThemeMode.system,
-        home: HomePage(),
+        home: const HomePage(),
       );
     });
   }
