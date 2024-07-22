@@ -132,7 +132,7 @@ class ChristmasCarol extends StatelessWidget {
             children: [
               Card(
                 clipBehavior: Clip.antiAlias,
-                child: Image.asset(
+                child: Image.network(
                   C[index].image,
                   fit: BoxFit.cover,
                   width: 120,
@@ -232,7 +232,7 @@ class DaySection extends StatelessWidget {
               ),
               Card(
                 clipBehavior: Clip.antiAlias,
-                child: Image.asset(
+                child: Image.network(
                   width: 80,
                   height: 80,
                   days[index].image,
@@ -283,7 +283,7 @@ class PrayerSection extends StatelessWidget {
         Card(
           clipBehavior: Clip.hardEdge,
           child: Ink.image(
-            image: AssetImage(prayers[index].image),
+            image: NetworkImage(prayers[index].image),
             fit: BoxFit.cover,
             width: 150,
             height: 230,

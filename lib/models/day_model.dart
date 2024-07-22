@@ -22,7 +22,7 @@ class DayModel extends BaseModel {
     days.add(DayModel(
       name: "Dia 1",
       fileName: "day_1",
-      image: "assets/images/days/day_1.webp",
+      image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: "16/12/$year",
       description:
           "Verbo Eterno se hace hombre para redimir, en amorosa obediencia, expiando desobediencia y rebeldía.",
@@ -32,7 +32,7 @@ class DayModel extends BaseModel {
     days.add(DayModel(
       name: "Dia 2",
       fileName: "day_2",
-      image: "assets/images/days/day_1.webp",
+      image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '17/12/$year',
       description:
           "María, acepta con humildad la encarnación divina. El Verbo toma posesión, cumpliendo la voluntad eterna.",
@@ -42,7 +42,7 @@ class DayModel extends BaseModel {
     days.add(DayModel(
       name: "Dia 3",
       fileName: "day_3",
-      image: "assets/images/days/day_1.webp",
+      image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '18/12/$year',
       description:
           "Vida encarnada: alma gloriosa y cuerpo divino. Maravilla de niño Jesús, purificando con amor y perdón en Navidad.",
@@ -52,7 +52,7 @@ class DayModel extends BaseModel {
     days.add(DayModel(
       name: "Dia 4",
       fileName: "day_4",
-      image: "assets/images/days/day_1.webp",
+      image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '19/12/$year',
       description:
           "Jesús ejemplificó sumisión eterna a Dios, guiándonos a la adoración profunda y sacrificio total.",
@@ -62,7 +62,7 @@ class DayModel extends BaseModel {
     days.add(DayModel(
       name: "Dia 5",
       fileName: "day_5",
-      image: "assets/images/days/day_1.webp",
+      image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '20/12/$year',
       description:
           "María anhela ver la faz divina de Jesús encarnado, anticipando felicidad eterna y amor filial.",
@@ -72,7 +72,7 @@ class DayModel extends BaseModel {
     days.add(DayModel(
       name: "Dia 6",
       fileName: "day_6",
-      image: "assets/images/days/day_1.webp",
+      image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '21/12/$year',
       description:
           "Contra las expectativas de Nazaret, el nacimiento divino se cumplió en Belén según la profecía.",
@@ -82,7 +82,7 @@ class DayModel extends BaseModel {
     days.add(DayModel(
       name: "Dia 7",
       fileName: "day_7",
-      image: "assets/images/days/day_1.webp",
+      image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '22/12/$year',
       description:
           "María y José llevan al creador del universo, humildad y obediencia en un niño, anhelos celestiales se cumplen.",
@@ -92,7 +92,7 @@ class DayModel extends BaseModel {
     days.add(DayModel(
       name: "Dia 8",
       fileName: "day_8",
-      image: "assets/images/days/day_1.webp",
+      image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '23/12/$year',
       description:
           "Jose y María, rechazados en Belén, hallan paz en la divina travesía. El ruido de puertas cerradas, dulce melodía para sus odios.",
@@ -102,7 +102,7 @@ class DayModel extends BaseModel {
     days.add(DayModel(
       name: "Dia 9",
       fileName: "day_9",
-      image: "assets/images/days/day_1.webp",
+      image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '24/12/$year',
       description:
           "Nace Divino Niño, adorado por ángeles, pastores, Reyes Magos. Una guía eterna hacia virtud.",

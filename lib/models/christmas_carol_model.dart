@@ -1,3 +1,5 @@
+import 'package:novena/models/model.dart';
+
 class ChristmasCarolModel {
   int id;
   String name;
@@ -23,14 +25,14 @@ class ChristmasCarolModel {
       name: "Peces en el rio",
       audio: "assets/audio/peces.mp3",
       lyrics: "peces",
-      image: "assets/images/covers/peces.webp",
+      image: "${BaseModel.url}/source/img/covers/peces.webp",
       viewIsVisible: true,
     ));
     christmas.add(ChristmasCarolModel(
       id: 1,
       name: "Rin Rin",
       audio: "assets/audio/rin_rin.mp3",
-      image: "assets/images/covers/rin_rin.webp",
+      image: "${BaseModel.url}/source/img/covers/rin_rin.webp",
       lyrics: "rin_rin",
       viewIsVisible: true,
     ));
@@ -38,7 +40,7 @@ class ChristmasCarolModel {
       id: 2,
       name: "Tamborilero",
       audio: "assets/audio/tamborilero.mp3",
-      image: "assets/images/covers/tambor.webp",
+      image: "${BaseModel.url}/source/img/covers/tambor.webp",
       lyrics: "tamborilero",
       viewIsVisible: true,
     ));
@@ -47,14 +49,14 @@ class ChristmasCarolModel {
       name: "Campana sobre campana",
       audio: "assets/audio/campana_sobre_campana.mp3",
       lyrics: "campana_sobre_campana",
-      image: "assets/images/covers/campanas.webp",
+      image: "${BaseModel.url}/source/img/covers/campanas.webp",
       viewIsVisible: true,
     ));
     christmas.add(ChristmasCarolModel(
       id: 4,
       name: "A la nanita nana",
       audio: "assets/audio/la_anita_nana.mp3",
-      image: "assets/images/covers/last.webp",
+      image: "${BaseModel.url}/source/img/covers/last.webp",
       lyrics: "la_anita_nana",
       viewIsVisible: true,
     ));

@@ -5,6 +5,7 @@ class BaseModel {
   dynamic next;
   String image;
   String type;
+  static String url = "https://static.jhairparis.com/portfolio/projects/Novena";
 
   BaseModel({
     required this.name,

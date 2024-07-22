@@ -88,7 +88,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Image.asset(
+                    Image.network(
                       metaData.image,
                       height: 300,
                       width: 300,
