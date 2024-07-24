@@ -24,6 +24,7 @@ dependencies:
   rxdart: ^0.27.7
   audio_video_progress_bar: ^2.0.1
   dynamic_color: ^1.6.9
+  http: ^1.2.2
 
 # change icon with https://icon.kitchen/
 
@@ -37,10 +38,6 @@ flutter:
   assets:
     - assets/icons/
     - assets/audio/
-    - assets/images/days/
-    - assets/images/covers/
-    - assets/images/prayers/
-    - assets/txt/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

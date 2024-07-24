@@ -1,22 +1,28 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:novena/models/model.dart';
+import 'package:http/http.dart' as http;
 import 'dart:async' show Future;
 
 class PrayWidget extends StatelessWidget {
   final String fileName;
   const PrayWidget({super.key, required this.fileName});
 
-  Future<String> loadText(BuildContext context, String source) async {
-    return await DefaultAssetBundle.of(context)
-        .loadString('assets/txt/$source.txt');
+  Future<Map<String, String>> loadText(String url) async {
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final List<String> splitResponse = response.body.split("_1c_");
+      return {"text": splitResponse[0], "info": splitResponse[1]};
+    } else {
+      throw Exception('Failed to load text from $url');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: FutureBuilder<String>(
-        future: loadText(context, fileName),
+      child: FutureBuilder<Map<String, String>>(
+        future: loadText(fileName),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
@@ -37,8 +43,14 @@ class PrayWidget extends StatelessWidget {
               child: ListView(
                 children: [
                   Text(
-                    snapshot.data ?? "default value",
+                    snapshot.data!["text"]!,
                     style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  Center(
+                    child: Text(
+                      snapshot.data!["info"]!,
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
                   )
                 ],
               ),

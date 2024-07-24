@@ -21,7 +21,7 @@ class DayModel extends BaseModel {
 
     days.add(DayModel(
       name: "Dia 1",
-      fileName: "day_1",
+      fileName: "${BaseModel.url}/source/txt/days/day_1.txt",
       image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: "16/12/$year",
       description:
@@ -31,7 +31,7 @@ class DayModel extends BaseModel {
     ));
     days.add(DayModel(
       name: "Dia 2",
-      fileName: "day_2",
+      fileName: "${BaseModel.url}/source/txt/days/day_2.txt",
       image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '17/12/$year',
       description:
@@ -41,7 +41,7 @@ class DayModel extends BaseModel {
     ));
     days.add(DayModel(
       name: "Dia 3",
-      fileName: "day_3",
+      fileName: "${BaseModel.url}/source/txt/days/day_3.txt",
       image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '18/12/$year',
       description:
@@ -51,7 +51,7 @@ class DayModel extends BaseModel {
     ));
     days.add(DayModel(
       name: "Dia 4",
-      fileName: "day_4",
+      fileName: "${BaseModel.url}/source/txt/days/day_4.txt",
       image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '19/12/$year',
       description:
@@ -61,7 +61,7 @@ class DayModel extends BaseModel {
     ));
     days.add(DayModel(
       name: "Dia 5",
-      fileName: "day_5",
+      fileName: "${BaseModel.url}/source/txt/days/day_5.txt",
       image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '20/12/$year',
       description:
@@ -71,7 +71,7 @@ class DayModel extends BaseModel {
     ));
     days.add(DayModel(
       name: "Dia 6",
-      fileName: "day_6",
+      fileName: "${BaseModel.url}/source/txt/days/day_6.txt",
       image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '21/12/$year',
       description:
@@ -81,7 +81,7 @@ class DayModel extends BaseModel {
     ));
     days.add(DayModel(
       name: "Dia 7",
-      fileName: "day_7",
+      fileName: "${BaseModel.url}/source/txt/days/day_7.txt",
       image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '22/12/$year',
       description:
@@ -91,7 +91,7 @@ class DayModel extends BaseModel {
     ));
     days.add(DayModel(
       name: "Dia 8",
-      fileName: "day_8",
+      fileName: "${BaseModel.url}/source/txt/days/day_8.txt",
       image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '23/12/$year',
       description:
@@ -101,7 +101,7 @@ class DayModel extends BaseModel {
     ));
     days.add(DayModel(
       name: "Dia 9",
-      fileName: "day_9",
+      fileName: "${BaseModel.url}/source/txt/days/day_9.txt",
       image: "${BaseModel.url}/source/img/days/day_1.webp",
       type: '24/12/$year',
       description:

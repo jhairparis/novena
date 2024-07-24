@@ -14,7 +14,7 @@ class PrayerModel extends BaseModel {
 
     prayers.add(PrayerModel(
       name: "Novena de aguinaldos",
-      fileName: "NdeA",
+      fileName: "${BaseModel.url}/source/txt/prayers/NdeA.txt",
       type: "Todos los dias",
       image: "${BaseModel.url}/source/img/prayers/NdeA.webp",
       haveNext: true,
@@ -22,7 +22,7 @@ class PrayerModel extends BaseModel {
 
     prayers.add(PrayerModel(
       name: "Santisima virgen",
-      fileName: "SV",
+      fileName: "${BaseModel.url}/source/txt/prayers/SV.txt",
       type: "Todos los dias",
       image: "${BaseModel.url}/source/img/prayers/SV.webp",
       haveNext: true,
@@ -30,14 +30,14 @@ class PrayerModel extends BaseModel {
 
     prayers.add(PrayerModel(
       name: "San jose",
-      fileName: "SJ",
+      fileName: "${BaseModel.url}/source/txt/prayers/SJ.txt",
       type: "Todos los dias",
       image: "${BaseModel.url}/source/img/prayers/SJ.webp",
       haveNext: true,
     ));
     prayers.add(PrayerModel(
       name: "Nino jesus",
-      fileName: "NJ",
+      fileName: "${BaseModel.url}/source/txt/prayers/NJ.txt",
       type: "Todos los dias",
       image: "${BaseModel.url}/source/img/prayers/NJ.webp",
       haveNext: false,
