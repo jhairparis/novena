@@ -1,6 +1,9 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:novena/components/image_error.dart';
+import 'package:http/http.dart' as http;
 import 'package:novena/components/player/controls.dart';
 import 'package:novena/models/christmas_carol_model.dart';
 import 'package:rxdart/rxdart.dart';
@@ -63,9 +66,13 @@ class _PlayerWidgetState extends State<PlayerWidget> {
     super.dispose();
   }
 
-  Future<String> loadText(BuildContext context, String source) async {
-    return await DefaultAssetBundle.of(context)
-        .loadString('assets/txt/$source.txt');
+  Future<String> loadText(String url) async {
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      throw Exception('Failed to load text from $url');
+    }
   }
 
   @override
@@ -88,11 +95,20 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Image.network(
-                      metaData.image,
-                      height: 300,
-                      width: 300,
-                      fit: BoxFit.cover,
+                    CachedNetworkImage(
+                      imageUrl: metaData.image,
+                      placeholder: (context, url) => 
+                          const ImageError(width: 300, height: 300),
+                      errorWidget: (context, url, error) =>
+                          const ImageError(width: 300, height: 300),
+                      imageBuilder: (ctx, imageProvider) {
+                        return Ink.image(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                          width: 300,
+                          height: 300,
+                        );
+                      },
                     ),
                     const SizedBox(
                       height: 16,
@@ -103,7 +119,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                         width: double.infinity,
                         height: double.infinity,
                         child: FutureBuilder(
-                          future: loadText(context, metaData.lyrics),
+                          future: loadText(metaData.lyrics),
                           builder: (cxt, snap) {
                             if (snap.connectionState ==
                                 ConnectionState.waiting) {

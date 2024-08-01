@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:novena/components/image_error.dart';
 import 'package:novena/models/prayer_model.dart';
 import 'package:novena/models/christmas_carol_model.dart';
 import 'package:novena/models/day_model.dart';
@@ -132,11 +134,18 @@ class ChristmasCarol extends StatelessWidget {
             children: [
               Card(
                 clipBehavior: Clip.antiAlias,
-                child: Image.network(
-                  C[index].image,
-                  fit: BoxFit.cover,
-                  width: 120,
-                  height: 120,
+                child: CachedNetworkImage(
+                  imageUrl: C[index].image,
+                  placeholder: (context, url) => const ImageError(),
+                  errorWidget: (context, url, error) => const ImageError(),
+                  imageBuilder: (ctx, imageProvider) {
+                    return Ink.image(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                      width: 120,
+                      height: 120,
+                    );
+                  },
                 ),
               ),
               const SizedBox(
@@ -232,11 +241,20 @@ class DaySection extends StatelessWidget {
               ),
               Card(
                 clipBehavior: Clip.antiAlias,
-                child: Image.network(
-                  width: 80,
-                  height: 80,
-                  days[index].image,
-                  fit: BoxFit.cover,
+                child: CachedNetworkImage(
+                  imageUrl: days[index].image,
+                  placeholder: (context, url) =>
+                      const ImageError(width: 80, height: 80),
+                  errorWidget: (context, url, error) =>
+                      const ImageError(width: 80, height: 80),
+                  imageBuilder: (ctx, imageProvider) {
+                    return Ink.image(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                      width: 80,
+                      height: 80,
+                    );
+                  },
                 ),
               ),
             ],
@@ -282,18 +300,27 @@ class PrayerSection extends StatelessWidget {
       children: [
         Card(
           clipBehavior: Clip.hardEdge,
-          child: Ink.image(
-            image: NetworkImage(prayers[index].image),
-            fit: BoxFit.cover,
-            width: 150,
-            height: 230,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ReadingPage(info: prayers[index]),
-                  ),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ReadingPage(info: prayers[index]),
+                ),
+              );
+            },
+            child: CachedNetworkImage(
+              imageUrl: prayers[index].image,
+              placeholder: (context, url) =>
+                  const ImageError(width: 150, height: 230),
+              errorWidget: (context, url, error) =>
+                  const ImageError(width: 150, height: 230),
+              imageBuilder: (ctx, imageProvider) {
+                return Ink.image(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                  width: 150,
+                  height: 230,
                 );
               },
             ),
