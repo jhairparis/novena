@@ -9,7 +9,7 @@ import audio_session
 import dynamic_color
 import just_audio
 import path_provider_foundation
-import sqflite
+import sqflite_darwin
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   AudioSessionPlugin.register(with: registry.registrar(forPlugin: "AudioSessionPlugin"))
