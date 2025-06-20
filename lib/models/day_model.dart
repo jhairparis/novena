@@ -16,6 +16,7 @@ class DayModel extends BaseModel {
 
   static List<DayModel> getDays() {
     int year = DateTime.now().year;
+    int month = DateTime.now().month;
     int day = DateTime.now().day;
     List<DayModel> days = <DayModel>[];
 
@@ -26,7 +27,7 @@ class DayModel extends BaseModel {
       type: "16/12/$year",
       description:
           "Verbo Eterno se hace hombre para redimir, en amorosa obediencia, expiando desobediencia y rebeldía.",
-      viewIsVisible: 16 == day,
+      viewIsVisible: month == 12 && day == 16,
       haveNext: true,
     ));
     days.add(DayModel(
@@ -36,7 +37,7 @@ class DayModel extends BaseModel {
       type: '17/12/$year',
       description:
           "María, acepta con humildad la encarnación divina. El Verbo toma posesión, cumpliendo la voluntad eterna.",
-      viewIsVisible: 17 == day,
+      viewIsVisible: month == 12 && day == 17,
       haveNext: true,
     ));
     days.add(DayModel(
@@ -46,7 +47,7 @@ class DayModel extends BaseModel {
       type: '18/12/$year',
       description:
           "Vida encarnada: alma gloriosa y cuerpo divino. Maravilla de niño Jesús, purificando con amor y perdón en Navidad.",
-      viewIsVisible: 18 == day,
+      viewIsVisible: month == 12 && day == 18,
       haveNext: true,
     ));
     days.add(DayModel(
@@ -56,7 +57,7 @@ class DayModel extends BaseModel {
       type: '19/12/$year',
       description:
           "Jesús ejemplificó sumisión eterna a Dios, guiándonos a la adoración profunda y sacrificio total.",
-      viewIsVisible: 19 == day,
+      viewIsVisible: month == 12 && day == 19,
       haveNext: true,
     ));
     days.add(DayModel(
@@ -66,7 +67,7 @@ class DayModel extends BaseModel {
       type: '20/12/$year',
       description:
           "María anhela ver la faz divina de Jesús encarnado, anticipando felicidad eterna y amor filial.",
-      viewIsVisible: 20 == day,
+      viewIsVisible: month == 12 && day == 20,
       haveNext: true,
     ));
     days.add(DayModel(
@@ -76,7 +77,7 @@ class DayModel extends BaseModel {
       type: '21/12/$year',
       description:
           "Contra las expectativas de Nazaret, el nacimiento divino se cumplió en Belén según la profecía.",
-      viewIsVisible: 21 == day,
+      viewIsVisible: month == 12 && day == 21,
       haveNext: true,
     ));
     days.add(DayModel(
@@ -86,7 +87,7 @@ class DayModel extends BaseModel {
       type: '22/12/$year',
       description:
           "María y José llevan al creador del universo, humildad y obediencia en un niño, anhelos celestiales se cumplen.",
-      viewIsVisible: 22 == day,
+      viewIsVisible: month == 12 && day == 22,
       haveNext: true,
     ));
     days.add(DayModel(
@@ -96,7 +97,7 @@ class DayModel extends BaseModel {
       type: '23/12/$year',
       description:
           "Jose y María, rechazados en Belén, hallan paz en la divina travesía. El ruido de puertas cerradas, dulce melodía para sus odios.",
-      viewIsVisible: 23 == day,
+      viewIsVisible: month == 12 && day == 23,
       haveNext: true,
     ));
     days.add(DayModel(
@@ -106,7 +107,7 @@ class DayModel extends BaseModel {
       type: '24/12/$year',
       description:
           "Nace Divino Niño, adorado por ángeles, pastores, Reyes Magos. Una guía eterna hacia virtud.",
-      viewIsVisible: 24 == day,
+      viewIsVisible: month == 12 && day == 24,
       haveNext: false,
     ));
 
