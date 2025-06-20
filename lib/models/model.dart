@@ -1,11 +1,13 @@
+import '../config.dart';
+
 class BaseModel {
   String name;
   String fileName;
   bool haveNext;
-  dynamic next;
+  BaseModel? next;
   String image;
   String type;
-  static String url = "https://static.jhairparis.com/portfolio/projects/Novena";
+  static const String url = kBaseUrl;
 
   BaseModel({
     required this.name,
