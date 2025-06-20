@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
                     width: 198,
                     height: 232,
                     colorFilter: ColorFilter.mode(
-                      Theme.of(context).colorScheme.primary.withOpacity(0.25),
+                      Theme.of(context).colorScheme.primary.withAlpha((0.25 * 255).toInt()),
                       BlendMode.srcIn,
                     ),
                   ),

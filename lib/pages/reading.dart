@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:novena/models/model.dart';
 import 'package:http/http.dart' as http;
@@ -27,9 +26,7 @@ class PrayWidget extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasError) {
-            if (kDebugMode) {
-              print("Error: ${snapshot.error}");
-            }
+            debugPrint('ReadingPage loadText error: ${snapshot.error}');
             return Text(
               "Ops! Algo salió mal.",
               style: Theme.of(context).textTheme.bodyLarge,
@@ -92,7 +89,7 @@ class ReadingPage extends StatelessWidget {
           tooltip: 'Regresar',
           icon: const Icon(Icons.arrow_back),
         ),
-        actions: info.haveNext
+        actions: info.haveNext && info.next != null
             ? [
                 IconButton(
                   onPressed: () {
@@ -100,12 +97,12 @@ class ReadingPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ReadingPage(
-                          info: info.next,
+                          info: info.next!,
                         ),
                       ),
                     );
                   },
-                  tooltip: 'Leer ${info.next.name}',
+                  tooltip: 'Leer ${info.next!.name}',
                   icon: const Icon(Icons.arrow_forward),
                 ),
               ]

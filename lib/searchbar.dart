@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({super.key});
+class CustomSearchBar extends StatelessWidget {
+  const CustomSearchBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class SearchBar extends StatelessWidget {
       margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-          color: const Color(0xff1D1617).withOpacity(0.11),
+          color: const Color(0xff1D1617).withAlpha((0.11 * 255).toInt()),
           blurRadius: 40,
           spreadRadius: 0.0,
         )
