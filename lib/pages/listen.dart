@@ -5,7 +5,7 @@ import 'package:novena/models/christmas_carol_model.dart';
 
 class ListenPage extends StatelessWidget {
   final ChristmasCarolModel info;
-  final ConcatenatingAudioSource playlist;
+  final List<AudioSource> playlist;
   const ListenPage({super.key, required this.info, required this.playlist});
 
   @override

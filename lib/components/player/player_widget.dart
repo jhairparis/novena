@@ -22,7 +22,7 @@ class PositionData {
 
 class PlayerWidget extends StatefulWidget {
   final int song;
-  final ConcatenatingAudioSource playlist;
+  final List<AudioSource> playlist;
   const PlayerWidget({super.key, required this.song, required this.playlist});
 
   @override
@@ -53,10 +53,10 @@ class _PlayerWidgetState extends State<PlayerWidget> {
   Future<void> _init() async {
     try {
       await _player.setLoopMode(LoopMode.all);
-      await _player.setAudioSource(widget.playlist);
+      await _player.setAudioSources(widget.playlist);
       await _player.seek(Duration.zero, index: widget.song);
     } catch (e) {
-      // ignore this errors
+      debugPrint('AudioPlayer init error: $e');
     }
   }
 
@@ -79,86 +79,84 @@ class _PlayerWidgetState extends State<PlayerWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: StreamBuilder<SequenceState?>(
-              stream: _player.sequenceStateStream,
-              builder: (ctx, snapshot) {
-                final state = snapshot.data;
-                if (state?.sequence.isEmpty ?? true) {
-                  return const SizedBox();
-                }
-                final metaData =
-                    state!.currentSource!.tag as ChristmasCarolModel;
+      body: Padding(
+        padding: const EdgeInsets.all(32),
+        child: StreamBuilder<SequenceState?>(
+            stream: _player.sequenceStateStream,
+            builder: (ctx, snapshot) {
+              final state = snapshot.data;
+              if (state?.sequence.isEmpty ?? true) {
+                return const SizedBox();
+              }
+              final metaData =
+                  state!.currentSource!.tag as ChristmasCarolModel;
 
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    CachedNetworkImage(
-                      imageUrl: metaData.image,
-                      placeholder: (context, url) => 
-                          const ImageError(width: 300, height: 300),
-                      errorWidget: (context, url, error) =>
-                          const ImageError(width: 300, height: 300),
-                      imageBuilder: (ctx, imageProvider) {
-                        return Ink.image(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                          width: 300,
-                          height: 300,
-                        );
-                      },
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: FutureBuilder(
-                          future: loadText(metaData.lyrics),
-                          builder: (cxt, snap) {
-                            if (snap.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Padding(
-                                padding: EdgeInsets.only(
-                                  right: 150,
-                                  left: 150,
-                                  top: 130,
-                                  bottom: 130,
-                                ),
-                                child:
-                                    CircularProgressIndicator(strokeWidth: 10),
-                              );
-                            } else if (snap.hasError) {
-                              return Text(
-                                "Ops! Algo salió mal.",
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: metaData.image,
+                    placeholder: (context, url) => 
+                        const ImageError(width: 300, height: 300),
+                    errorWidget: (context, url, error) =>
+                        const ImageError(width: 300, height: 300),
+                    imageBuilder: (ctx, imageProvider) {
+                      return Ink.image(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                        width: 300,
+                        height: 300,
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: FutureBuilder(
+                        future: loadText(metaData.lyrics),
+                        builder: (cxt, snap) {
+                          if (snap.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Padding(
+                              padding: EdgeInsets.only(
+                                right: 150,
+                                left: 150,
+                                top: 130,
+                                bottom: 130,
+                              ),
+                              child:
+                                  CircularProgressIndicator(strokeWidth: 10),
+                            );
+                          } else if (snap.hasError) {
+                            return Text(
+                              "Ops! Algo salió mal.",
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            );
+                          } else {
+                            return SingleChildScrollView(
+                              child: Text(
+                                snap.data ?? "default value",
                                 style: Theme.of(context).textTheme.bodyLarge,
-                              );
-                            } else {
-                              return SingleChildScrollView(
-                                child: Text(
-                                  snap.data ?? "default value",
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                ),
-                              );
-                            }
-                          },
-                        ),
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    _progressBar(),
-                    Controls(player: _player),
-                  ],
-                );
-              }),
-        ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  _progressBar(),
+                  Controls(player: _player),
+                ],
+              );
+            }),
       ),
     );
   }

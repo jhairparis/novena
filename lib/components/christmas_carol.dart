@@ -9,7 +9,9 @@ class ChristmasCarol extends StatelessWidget {
   const ChristmasCarol({super.key});
 
   static final C = ChristmasCarolModel.getChristmasCarol();
-  static final _playlist = ConcatenatingAudioSource(children: []);
+  static final List<AudioSource> _playlist = C
+      .map((c) => AudioSource.asset(c.audio, tag: c))
+      .toList();
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +33,6 @@ class ChristmasCarol extends StatelessWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              _playlist.add(AudioSource.asset(C[index].audio, tag: C[index]));
-
               return christmasCarolBuilder(context, index);
             },
             padding: const EdgeInsets.only(left: 20, right: 20),
