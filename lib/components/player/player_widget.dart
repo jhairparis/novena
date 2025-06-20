@@ -68,7 +68,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
 
   Future<String> loadText(String url) async {
     final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       return response.body;
     } else {
       throw Exception('Failed to load text from $url');

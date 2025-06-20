@@ -9,7 +9,7 @@ class PrayWidget extends StatelessWidget {
 
   Future<Map<String, String>> loadText(String url) async {
     final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       final List<String> splitResponse = response.body.split("_1c_");
       return {"text": splitResponse[0], "info": splitResponse[1]};
     } else {
