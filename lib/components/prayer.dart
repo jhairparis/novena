@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:novena/components/image_error.dart';
+import 'package:novena/components/themed_text.dart';
 import 'package:novena/models/prayer_model.dart';
 import 'package:novena/pages/reading.dart';
 
@@ -70,14 +71,8 @@ class PrayerSection extends StatelessWidget {
         ),
         Column(
           children: [
-            Text(
-              prayers[index].name,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            Text(
-              prayers[index].type,
-              style: Theme.of(context).textTheme.bodyLarge,
-            )
+            ThemedTitle(text: prayers[index].name),
+            ThemedSubtitle(text: prayers[index].type),
           ],
         ),
       ],

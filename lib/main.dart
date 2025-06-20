@@ -16,20 +16,37 @@ class MyApp extends StatelessWidget {
 
   static final _defaultDarkColorScheme =
       ColorScheme.fromSeed(seedColor: _seedColor, brightness: Brightness.dark);
-
   @override
   Widget build(BuildContext context) {
     return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
+      final effectiveLightColorScheme =
+          lightColorScheme ?? _defaultLightColorScheme;
+      final effectiveDarkColorScheme =
+          darkColorScheme ?? _defaultDarkColorScheme;
       return MaterialApp(
         title: 'Novena de aguinaldos',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: lightColorScheme ?? _defaultLightColorScheme,
+          colorScheme: effectiveLightColorScheme,
           useMaterial3: true,
+          textTheme: ThemeData.light().textTheme.apply(
+                bodyColor: effectiveLightColorScheme.onSurface,
+                displayColor: effectiveLightColorScheme.onSurface,
+              ),
+          cardTheme: CardThemeData(
+            color: effectiveLightColorScheme.surface,
+          ),
         ),
         darkTheme: ThemeData(
-          colorScheme: darkColorScheme ?? _defaultDarkColorScheme,
+          colorScheme: effectiveDarkColorScheme,
           useMaterial3: true,
+          textTheme: ThemeData.dark().textTheme.apply(
+                bodyColor: effectiveDarkColorScheme.onSurface,
+                displayColor: effectiveDarkColorScheme.onSurface,
+              ),
+          cardTheme: CardThemeData(
+            color: effectiveDarkColorScheme.surface,
+          ),
         ),
         themeMode: ThemeMode.system,
         home: const HomePage(),
