@@ -4,6 +4,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:novena/components/image_error.dart';
 import 'package:novena/models/christmas_carol_model.dart';
 import 'package:novena/pages/listen.dart';
+import '../utils/navigation_helper.dart';
 
 class ChristmasCarol extends StatelessWidget {
   const ChristmasCarol({super.key});
@@ -49,12 +50,10 @@ class ChristmasCarol extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {
-          Navigator.push(
+          NavigationHelper.push(
             context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  ListenPage(info: C[index], playlist: _playlist),
-            ),
+            ListenPage(info: C[index], playlist: _playlist),
+            routeName: 'listen/${C[index].name}',
           );
         },
         child: Padding(

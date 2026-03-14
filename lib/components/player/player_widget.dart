@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:novena/components/player/controls.dart';
 import 'package:novena/models/christmas_carol_model.dart';
 import 'package:rxdart/rxdart.dart';
+import '../../utils/navigation_helper.dart';
 
 class PositionData {
   final Duration position;
@@ -59,9 +60,10 @@ class _PlayerWidgetState extends State<PlayerWidget> {
       debugPrint('AudioPlayer init error: $e');
     }
   }
-
   @override
   void dispose() {
+    // Limpiar el reproductor cuando el widget se destruya
+    _player.stop();
     _player.dispose();
     super.dispose();
   }
@@ -77,27 +79,30 @@ class _PlayerWidgetState extends State<PlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // No usar PopScope a menos que necesites lógica especial de back
+    // Para predictive back gesture, dejar que Flutter maneje la navegación normalmente
+    // La limpieza se hace en dispose()
     return Scaffold(
       appBar: _appBar(context),
       body: Padding(
-        padding: const EdgeInsets.all(32),
-        child: StreamBuilder<SequenceState?>(
-            stream: _player.sequenceStateStream,
-            builder: (ctx, snapshot) {
-              final state = snapshot.data;
-              if (state?.sequence.isEmpty ?? true) {
-                return const SizedBox();
-              }
-              final metaData =
-                  state!.currentSource!.tag as ChristmasCarolModel;
+          padding: const EdgeInsets.all(32),
+          child: StreamBuilder<SequenceState?>(
+              stream: _player.sequenceStateStream,
+              builder: (ctx, snapshot) {
+                final state = snapshot.data;
+                if (state?.sequence.isEmpty ?? true) {
+                  return const SizedBox();
+                }
+                final metaData =
+                    state!.currentSource!.tag as ChristmasCarolModel;
 
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: metaData.image,
-                    placeholder: (context, url) => 
-                        const ImageError(width: 300, height: 300),
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: metaData.image,
+                      placeholder: (context, url) => 
+                          const ImageError(width: 300, height: 300),
                     errorWidget: (context, url, error) =>
                         const ImageError(width: 300, height: 300),
                     imageBuilder: (ctx, imageProvider) {
@@ -141,8 +146,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                             return SingleChildScrollView(
                               child: Text(
                                 snap.data ?? "default value",
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
+                                style: Theme.of(context).textTheme.bodyLarge,                              ),
                             );
                           }
                         },
@@ -157,7 +161,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                 ],
               );
             }),
-      ),
+        ),
     );
   }
 
@@ -174,27 +178,17 @@ class _PlayerWidgetState extends State<PlayerWidget> {
             barHeight: 8,
           );
         });
-  }
-
-  AppBar _appBar(BuildContext context) {
+  }  AppBar _appBar(BuildContext context) {
     return AppBar(
       elevation: 0,
       leading: IconButton(
         onPressed: () {
-          Navigator.pop(context);
+          _player.stop();
+          NavigationHelper.pop(context);
         },
         icon: const Icon(Icons.arrow_back),
         tooltip: "Regresar",
       ),
-      /* actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.share,
-            color: Color(0xff52D3D8),
-          ),
-        ),
-      ], */
       title: StreamBuilder<SequenceState?>(
           stream: _player.sequenceStateStream,
           builder: (context, snapshot) {

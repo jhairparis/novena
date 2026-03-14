@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:novena/models/model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async' show Future;
+import '../components/predictive_back_wrapper.dart';
+import '../utils/navigation_helper.dart';
 
 class PrayWidget extends StatelessWidget {
   final String fileName;
@@ -65,12 +67,12 @@ class ReadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // No usar PopScope a menos que necesites lógica especial de back
+    // Para predictive back gesture, dejar que Flutter maneje la navegación normalmente
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
+      appBar: PredictiveAppBar(
         toolbarHeight: 80,
-        title: Column(
+        titleWidget: Column(
           children: [
             Text(
               info.name,
@@ -82,24 +84,14 @@ class ReadingPage extends StatelessWidget {
             ),
           ],
         ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          tooltip: 'Regresar',
-          icon: const Icon(Icons.arrow_back),
-        ),
         actions: info.haveNext && info.next != null
             ? [
                 IconButton(
                   onPressed: () {
-                    Navigator.push(
+                    NavigationHelper.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => ReadingPage(
-                          info: info.next!,
-                        ),
-                      ),
+                      ReadingPage(info: info.next!),
+                      routeName: 'reading/${info.next!.name}',
                     );
                   },
                   tooltip: 'Leer ${info.next!.name}',

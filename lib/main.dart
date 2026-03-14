@@ -22,8 +22,7 @@ class MyApp extends StatelessWidget {
       final effectiveLightColorScheme =
           lightColorScheme ?? _defaultLightColorScheme;
       final effectiveDarkColorScheme =
-          darkColorScheme ?? _defaultDarkColorScheme;
-      return MaterialApp(
+          darkColorScheme ?? _defaultDarkColorScheme;        return MaterialApp(
         title: 'Novena de aguinaldos',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -36,8 +35,13 @@ class MyApp extends StatelessWidget {
           cardTheme: CardThemeData(
             color: effectiveLightColorScheme.surface,
           ),
-        ),
-        darkTheme: ThemeData(
+          // Habilitar transiciones predictivas para Android
+          pageTransitionsTheme: const PageTransitionsTheme(
+            builders: <TargetPlatform, PageTransitionsBuilder>{
+              TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+            },
+          ),
+        ),        darkTheme: ThemeData(
           colorScheme: effectiveDarkColorScheme,
           useMaterial3: true,
           textTheme: ThemeData.dark().textTheme.apply(
@@ -46,6 +50,12 @@ class MyApp extends StatelessWidget {
               ),
           cardTheme: CardThemeData(
             color: effectiveDarkColorScheme.surface,
+          ),
+          // Habilitar transiciones predictivas para Android
+          pageTransitionsTheme: const PageTransitionsTheme(
+            builders: <TargetPlatform, PageTransitionsBuilder>{
+              TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+            },
           ),
         ),
         themeMode: ThemeMode.system,

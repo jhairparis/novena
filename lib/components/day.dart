@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:novena/components/image_error.dart';
 import 'package:novena/models/day_model.dart';
 import 'package:novena/pages/reading.dart';
+import '../utils/navigation_helper.dart';
 
 class DaySection extends StatelessWidget {
   const DaySection({
@@ -48,11 +49,10 @@ class DaySection extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {
-          Navigator.push(
+          NavigationHelper.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => ReadingPage(info: days[index]),
-            ),
+            ReadingPage(info: days[index]),
+            routeName: 'day/${days[index].name}',
           );
         },
         child: Padding(

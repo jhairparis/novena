@@ -4,6 +4,7 @@ import 'package:novena/components/image_error.dart';
 import 'package:novena/components/themed_text.dart';
 import 'package:novena/models/prayer_model.dart';
 import 'package:novena/pages/reading.dart';
+import '../utils/navigation_helper.dart';
 
 class PrayerSection extends StatelessWidget {
   const PrayerSection({
@@ -42,11 +43,10 @@ class PrayerSection extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           child: InkWell(
             onTap: () {
-              Navigator.push(
+              NavigationHelper.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => ReadingPage(info: prayers[index]),
-                ),
+                ReadingPage(info: prayers[index]),
+                routeName: 'prayer/${prayers[index].name}',
               );
             },
             child: CachedNetworkImage(
