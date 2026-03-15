@@ -28,7 +28,9 @@ class DaySection extends StatelessWidget {
           height: 16,
         ),
         ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 495),
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.45,
+          ),
           child: ListView.separated(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,

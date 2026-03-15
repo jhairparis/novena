@@ -21,8 +21,10 @@ class PrayerSection extends StatelessWidget {
         const SizedBox(
           height: 16,
         ),
-        SizedBox(
-          height: 320,
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.55,
+          ),
           child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.only(left: 20, right: 20),

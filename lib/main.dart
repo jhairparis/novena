@@ -34,6 +34,10 @@ class MyApp extends StatelessWidget {
               ),
           cardTheme: CardThemeData(
             color: effectiveLightColorScheme.surface,
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
           // Habilitar transiciones predictivas para Android
           pageTransitionsTheme: const PageTransitionsTheme(
@@ -50,6 +54,10 @@ class MyApp extends StatelessWidget {
               ),
           cardTheme: CardThemeData(
             color: effectiveDarkColorScheme.surface,
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
           // Habilitar transiciones predictivas para Android
           pageTransitionsTheme: const PageTransitionsTheme(
