@@ -56,30 +56,37 @@ class ChristmasCarol extends StatelessWidget {
             routeName: 'listen/${C[index].name}',
           );
         },
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Card(
-                clipBehavior: Clip.antiAlias,
-                child: CachedNetworkImage(
-                  imageUrl: C[index].image,
-                  placeholder: (context, url) => const ImageError(),
-                  errorWidget: (context, url, error) => const ImageError(),
-                  imageBuilder: (ctx, imageProvider) {
-                    return Ink.image(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                      width: 120,
-                      height: 120,
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(C[index].name, style: Theme.of(context).textTheme.titleLarge)
+         child: Padding(
+           padding: const EdgeInsets.all(16.0),
+           child: Column(
+             children: [
+               Card(
+                 clipBehavior: Clip.antiAlias,
+                 child: CachedNetworkImage(
+                   imageUrl: C[index].image,
+                   placeholder: (context, url) => const ImageError(),
+                   errorWidget: (context, url, error) => const ImageError(),
+                   imageBuilder: (ctx, imageProvider) {
+                     return Ink.image(
+                       image: imageProvider,
+                       fit: BoxFit.cover,
+                       width: 120,
+                       height: 120,
+                     );
+                   },
+                 ),
+               ),
+               const SizedBox(
+                 height: 16,
+               ),
+               Expanded(
+                 child: Text(
+                   C[index].name,
+                   style: Theme.of(context).textTheme.titleLarge,
+                   overflow: TextOverflow.fade,
+                   maxLines: 2,
+                 ),
+               ),
             ],
           ),
         ),
