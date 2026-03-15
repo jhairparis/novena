@@ -1,65 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:novena/models/model.dart';
-import 'package:http/http.dart' as http;
-import 'dart:async' show Future;
+import 'package:provider/provider.dart';
 import '../components/predictive_back_wrapper.dart';
 import '../utils/navigation_helper.dart';
-
-class PrayWidget extends StatelessWidget {
-  final String fileName;
-  const PrayWidget({super.key, required this.fileName});
-
-  Future<Map<String, String>> loadText(String url) async {
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode >= 200 && response.statusCode < 300) {
-      final List<String> splitResponse = response.body.split("_1c_");
-      return {"text": splitResponse[0], "info": splitResponse[1]};
-    } else {
-      throw Exception('Failed to load text from $url');
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: FutureBuilder<Map<String, String>>(
-        future: loadText(fileName),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            debugPrint('ReadingPage loadText error: ${snapshot.error}');
-            return Text(
-              "Ops! Algo salió mal.",
-              style: Theme.of(context).textTheme.bodyLarge,
-            );
-          } else {
-            return Padding(
-              padding: const EdgeInsets.only(
-                left: 16,
-                right: 16,
-              ),
-              child: ListView(
-                children: [
-                  Text(
-                    snapshot.data!["text"]!,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  Center(
-                    child: Text(
-                      snapshot.data!["info"]!,
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                  )
-                ],
-              ),
-            );
-          }
-        },
-      ),
-    );
-  }
-}
+import '../viewmodels/reading_viewmodel.dart';
+import '../repositories/content_repository.dart';
+import '../services/http_service.dart';
 
 class ReadingPage extends StatelessWidget {
   final BaseModel info;
@@ -67,8 +13,19 @@ class ReadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // No usar PopScope a menos que necesites lógica especial de back
-    // Para predictive back gesture, dejar que Flutter maneje la navegación normalmente
+    return ChangeNotifierProvider(
+      create: (_) => ReadingViewModel(repository: ContentRepository(HttpService())),
+      child: _ReadingPageContent(info: info),
+    );
+  }
+}
+
+class _ReadingPageContent extends StatelessWidget {
+  final BaseModel info;
+  const _ReadingPageContent({super.key, required this.info});
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: PredictiveAppBar(
         toolbarHeight: 80,
@@ -100,7 +57,84 @@ class ReadingPage extends StatelessWidget {
               ]
             : [],
       ),
-      body: PrayWidget(fileName: info.fileName),
+      body: Consumer<ReadingViewModel>(
+        builder: (context, viewModel, child) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            viewModel.loadContent(info.fileName);
+          });
+          
+          return _ContentBody(viewModel: viewModel);
+        },
+      ),
+    );
+  }
+}
+
+class _ContentBody extends StatelessWidget {
+  final ReadingViewModel viewModel;
+
+  const _ContentBody({super.key, required this.viewModel});
+
+  @override
+  Widget build(BuildContext context) {
+    if (viewModel.isLoading) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.only(right: 150, left: 150, top: 130, bottom: 130),
+          child: CircularProgressIndicator(strokeWidth: 10),
+        ),
+      );
+    }
+
+    if (viewModel.errorMessage != null) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.error_outline, size: 48, color: Theme.of(context).colorScheme.error),
+              const SizedBox(height: 16),
+              Text(
+                viewModel.errorMessage!,
+                style: Theme.of(context).textTheme.bodyLarge,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: viewModel.retry,
+                child: const Text('Reintentar'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (!viewModel.hasContent) {
+      return const SizedBox();
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16),
+      child: ListView(
+        children: [
+          Text(
+            viewModel.text!,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          if (viewModel.info != null && viewModel.info!.isNotEmpty)
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 32),
+                child: Text(
+                  viewModel.info!,
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
