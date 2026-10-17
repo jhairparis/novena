@@ -103,3 +103,9 @@ coverage/
 # Additional exclusions
 bundletool.jar
 android/app/.cxx/
+
+# Local-only files (kept out of version control)
+/assets/audio/
+/assets/launcher_icon/
+/.agents/
+/skills-lock.json
